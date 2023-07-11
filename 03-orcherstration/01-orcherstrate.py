@@ -5,7 +5,6 @@ import pathlib
 import sklearn
 import numpy as np
 import pandas as pd
-from prefect import flow, task
 
 from datetime import datetime
 from sklearn.pipeline import Pipeline
@@ -19,7 +18,6 @@ from sklearn.metrics import (f1_score,
                              roc_auc_score,
                              accuracy_score, 
                              precision_score)
-
 
 
 def read_clean_data(filename: str) -> pd.DataFrame:
@@ -63,7 +61,6 @@ def read_clean_data(filename: str) -> pd.DataFrame:
     
     return df
     
-    
 def miss_norm(df: pd.DataFrame) -> pd.DataFrame:
     """Handle missing values then normalize data"""
     
@@ -71,6 +68,8 @@ def miss_norm(df: pd.DataFrame) -> pd.DataFrame:
     categ_ftrs_1 = ['Education', 'Marital_Status', 'Kidhome', 'Teenhome', 'AcceptedCmp3', 'AcceptedCmp4', 'AcceptedCmp5', 'AcceptedCmp1', 'AcceptedCmp2', 'Complain', 'Age_Group']
 
     num_ftrs_1 = ['Income', 'Recency', 'MntWines', 'MntFruits', 'MntMeatProducts', 'MntFishProducts', 'MntSweetProducts', 'MntGoldProds', 'NumDealsPurchases', 'NumWebPurchases', 'NumCatalogPurchases', 'NumStorePurchases', 'NumWebVisitsMonth', 'Onboard_Days']
+    
+    target_var = df['Response'].tolist()
     
     num_transformer = Pipeline(steps=[
         ('imputer', SimpleImputer(strategy='median')),
@@ -85,12 +84,13 @@ def miss_norm(df: pd.DataFrame) -> pd.DataFrame:
     df = pd.DataFrame(ct.fit_transform(df), 
                       columns=num_ftrs_1+categ_ftrs_1)
     
+    df['Response'] = target_var
+    
     # Ensure that the final df features are in the right data types
     df[categ_ftrs_1] = df[categ_ftrs_1].astype('str')
     df[num_ftrs_1] = df[num_ftrs_1].astype('float')
-    
+        
     return df
-
 
 
 def vectorize(train_data: pd.DataFrame, val_data: pd.DataFrame) -> tuple([
@@ -117,10 +117,9 @@ def vectorize(train_data: pd.DataFrame, val_data: pd.DataFrame) -> tuple([
     
     return X_train, X_val, y_train, y_val, dv
 
-
 def train_best_model(
     X_train: scipy.sparse._csr.csr_matrix, 
-    X_val: scipy._csr.csr_matrix, 
+    X_val: scipy.sparse._csr.csr_matrix, 
     y_train: np.ndarray, 
     y_val: np.ndarray, 
     dv: sklearn.feature_extraction.DictVectorizer
@@ -154,6 +153,7 @@ def train_best_model(
         # Log the evaluation metrics
         mlflow.log_metrics(metrics)
         
+        # Create model folder if not exist
         pathlib.Path("models").mkdir(exist_ok=True)
         with open("models/preprocessor.b", "wb") as f_out:
             pickle.dump(dv, f_out)
@@ -166,4 +166,27 @@ def train_best_model(
         
         return None
     
+def main_flow(train_path: str = "./data/training_data.csv", 
+              val_path: str = "./data/validation_data.csv") -> None:
     
+    # Mlflow settings
+    mlflow.set_tracking_uri("sqlite:///mlflow.db")
+    mlflow.set_experiment("marketing-campaign")
+    
+    # Load
+    df_train = read_clean_data(train_path)
+    df_val = read_clean_data(val_path)
+    
+    # Handle missing and normalize
+    df_train = miss_norm(df_train)
+    df_val = miss_norm(df_val)
+    
+    # Vectorize
+    X_train, X_val, y_train, y_val, dv = vectorize(df_train, df_val)
+    
+    # Train
+    train_best_model(X_train, X_val, y_train, y_val, dv)
+    
+    
+if __name__ == "__main__":
+    main_flow()
