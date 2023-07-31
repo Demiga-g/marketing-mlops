@@ -1,0 +1,10 @@
+overall_requirements.txt
+marketing_campaign.csv
+# .gitignore
+.vscode
+mlflow.db
+models/
+mlruns/
+synthetic-data.csv
+settings.json
+__pycache__/
