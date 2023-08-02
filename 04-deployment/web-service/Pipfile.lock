@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1360bbe643b21d76eff1e174fbcd7230a45b90dbe105474021994b1157986c1e"
+            "sha256": "5ae38d15216a9254d32229929097930ceca594460b1d8cdb4983ce982ce90930"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -40,6 +40,14 @@
             ],
             "index": "pypi",
             "version": "==2.3.2"
+        },
+        "gunicorn": {
+            "hashes": [
+                "sha256:3213aa5e8c24949e792bcacfc176fef362e7aac80b76c56f6b5122bf350722f0",
+                "sha256:88ec8bff1d634f98e61b9f65bc4bf3cd918a90806c6f5c48bc5603849ec81033"
+            ],
+            "index": "pypi",
+            "version": "==21.2.0"
         },
         "itsdangerous": {
             "hashes": [
@@ -151,6 +159,14 @@
             ],
             "markers": "python_version >= '3.9'",
             "version": "==1.25.2"
+        },
+        "packaging": {
+            "hashes": [
+                "sha256:994793af429502c4ea2ebf6bf664629d07c1a9fe974af92966e4b8d2df7edc61",
+                "sha256:a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==23.1"
         },
         "scikit-learn": {
             "hashes": [
