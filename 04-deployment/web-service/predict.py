@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 from sklearn.impute import SimpleImputer
-from flask import Flask, request, jsonify
 from sklearn.compose import ColumnTransformer
 
 # Create the necessary variables
@@ -85,6 +84,3 @@ def predict(features):
     X = dv.transform(features)
     preds = model.predict(X)
     return preds[0]
-
-def predict_endpoint():
-    request
