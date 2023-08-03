@@ -8,7 +8,7 @@ from sklearn.compose import ColumnTransformer
 
 
 MLFLOW_TRACKING_URI = "http://127.0.0.1:5000"
-RUN_ID = "d435947de2974a60bc3cfafd1a801693"
+RUN_ID = "16fb592a742e430a92f6e6a5eee58c45"
 
 mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 
