@@ -1,19 +1,30 @@
+import pickle
 import mlflow
 import numpy as np
 import pandas as pd
 from datetime import datetime
+from mlflow.tracking import MlflowClient
 from sklearn.impute import SimpleImputer
 from flask import Flask, request, jsonify
 from sklearn.compose import ColumnTransformer
 
 
 MLFLOW_TRACKING_URI = "http://127.0.0.1:5000"
-RUN_ID = "d435947de2974a60bc3cfafd1a801693"
-
+RUN_ID = "d59fca9cddfa4808a3c6021e177251ff"
 mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 
+# Load the model
 logged_model = f'runs:/{RUN_ID}/model'
 model = mlflow.pyfunc.load_model(logged_model)
+
+# Load the dictionary vectorizer
+client = MlflowClient(tracking_uri=MLFLOW_TRACKING_URI)
+path = client.download_artifacts(run_id=RUN_ID, 
+                                 path='dict_vectorizer.bin')
+print(f'downloading the dict vectorizer to {path}')
+
+with open(path, 'rb') as f_out:
+    dv =  pickle.load(f_out)
 
 # Create the necessary variables
 dependants = ['Kidhome', 'Teenhome']
@@ -86,7 +97,8 @@ def scrub_data(details):
  
      
 def predict(features):
-    preds = model.predict(features)
+    X = dv.transform(features)
+    preds = model.predict(X)
     return float(preds[0])
 
 
