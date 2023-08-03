@@ -9,6 +9,7 @@ flask = "*"
 gunicorn = "*"
 pandas = "*"
 numpy = "*"
+mlflow = "*"
 
 [dev-packages]
 
