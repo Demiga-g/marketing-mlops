@@ -6,13 +6,11 @@ from sklearn.impute import SimpleImputer
 from flask import Flask, request, jsonify
 from sklearn.compose import ColumnTransformer
 
-
-MLFLOW_TRACKING_URI = "http://127.0.0.1:5000"
 RUN_ID = "16fb592a742e430a92f6e6a5eee58c45"
+BASE_LOCATION = 'home/mgubuntu/projects/marketing-mlops/04-deployment'
+LOCAL_LOCATION = 'web-service-mlflow/artifacts_local/1'
 
-mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
-
-logged_model = f'runs:/{RUN_ID}/model'
+logged_model = f'/{BASE_LOCATION}/{LOCAL_LOCATION}/{RUN_ID}/artifacts/model'
 model = mlflow.pyfunc.load_model(logged_model)
 
 # Create the necessary variables
