@@ -101,7 +101,6 @@ def predict(features):
     preds = model.predict(X)
     return float(preds[0])
 
-
 app = Flask('customer-response')
 
 @app.route('/predict-model-vec', methods=['POST'])
