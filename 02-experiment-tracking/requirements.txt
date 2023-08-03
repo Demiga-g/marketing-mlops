@@ -5,3 +5,4 @@ fastparquet
 boto3
 wandb
 pyarrow
+psycopg2-binary
