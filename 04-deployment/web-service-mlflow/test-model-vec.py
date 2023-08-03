@@ -7,7 +7,7 @@ details = {
 }
 
 url = 'http://localhost:9696/predict-model-vec'
-response = requests.post(url, json=details)
+response = requests.post(url, json=details, timeout=30)
 print(response.json())
 
 
