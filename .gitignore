@@ -1,7 +1,7 @@
 overall_requirements.txt
 marketing_campaign.csv
 # .gitignore
-.vscode
+*.vscode
 mlflow.db
 models/
 mlruns/
@@ -9,3 +9,4 @@ synthetic-data.csv
 settings.json
 __pycache__/
 artifacts_local/
+*.bin
