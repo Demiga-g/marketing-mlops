@@ -92,7 +92,7 @@ def predict(features):
 
 app = Flask('customer-response')
 
-@app.route('/predict-model', methods=['POST'])
+@app.route('/03-predict-model', methods=['POST'])
 def predict_endpoint():
     details = request.get_json()
     
