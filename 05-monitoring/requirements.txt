@@ -1,0 +1,10 @@
+prefect
+pandas==1.4.2
+numpy==1.21.5
+tqdm
+requests
+joblib
+psycopg2-binary
+evidently
+scikit-learn==1.0.2
+jupyter
