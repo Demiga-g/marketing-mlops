@@ -166,8 +166,8 @@ def train_best_model(
         
         return None
     
-def main_flow(train_path: str = "./data/training_data.csv", 
-              val_path: str = "./data/validation_data.csv") -> None:
+def main_flow(train_path: str = "../00-data/training_data.csv", 
+              val_path: str = "../00-data/validation_data.csv") -> None:
     
     # Mlflow settings
     mlflow.set_tracking_uri("sqlite:///mlflow.db")
