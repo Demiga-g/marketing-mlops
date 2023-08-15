@@ -176,16 +176,12 @@ def train_best_model(
         # Create Prefect markdown
         
         markdown_metrics_report = f"""# Metrics Report
-
         ## Summary
-
         Customer Response Prediction
-
         ## Metrics
         |Region|Precision|Recall|Accuracy|
         |:---:|:---:|:---:|:---:|
         |{date.today()}|{metrics['precision']}|{metrics['recall']}|{metrics['accuracy']}|
-        
         """
         
         create_markdown_artifact(key="response-prediction-metrics", 
