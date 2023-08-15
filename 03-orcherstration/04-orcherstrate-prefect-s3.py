@@ -195,7 +195,7 @@ def train_best_model(
         return None
     
 @flow  
-def main_flow_s3(train_path: str = "../00-data/training_data.csv", 
+def s3_main_flow(train_path: str = "../00-data/training_data.csv", 
               val_path: str = "../00-data/validation_data.csv") -> None:
     
     # Mlflow settings
@@ -223,5 +223,5 @@ def main_flow_s3(train_path: str = "../00-data/training_data.csv",
     
     
 if __name__ == "__main__":
-    main_flow_s3()
+    s3_main_flow()
     

@@ -32,6 +32,6 @@ deployments:
     job_variables: {}
   schedule: null
 - name: response-prediction-s3
-  entrypoint: 03-orcherstration/04-orcherstrate-prefect-s3.py:main_flow_s3
+  entrypoint: 03-orcherstration/04-orcherstrate-prefect-s3.py:s3_main_flow
   work_pool:
     name: ifood-pool
