@@ -11,4 +11,6 @@ __pycache__/
 artifacts_local/
 *.bin
 output/
-data/
+.prefectignore
+prefect.yaml
+.prefect
