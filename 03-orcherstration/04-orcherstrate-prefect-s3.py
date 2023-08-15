@@ -184,7 +184,7 @@ def train_best_model(
         ## Metrics
         |Region|Precision|Recall|Accuracy|
         |:---:|:---:|:---:|:---:|
-        |{date.today()}|{metrics[1]}|{metrics[2]}|{metrics[4]}|
+        |{date.today()}|{metrics['precision']}|{metrics['recall']}|{metrics['accuracy']}|
         
         """
         
