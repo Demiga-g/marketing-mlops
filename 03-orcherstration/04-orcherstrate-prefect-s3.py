@@ -182,9 +182,8 @@ def train_best_model(
         Customer Response Prediction
 
         ## Metrics
-
         |Region|Precision|Recall|Accuracy|
-        |:--:|:--:|:--:|:--|
+        |:---:|:---:|:---:|:---:|
         |{date.today()}|{metrics[1]}|{metrics[2]}|{metrics[4]}|
         
         """
@@ -195,8 +194,8 @@ def train_best_model(
         return None
     
 @flow  
-def s3_main_flow(train_path: str = "../00-data/training_data.csv", 
-              val_path: str = "../00-data/validation_data.csv") -> None:
+def s3_main_flow(train_path: str = "./data/training_data.csv", 
+              val_path: str = "./data/validation_data.csv") -> None:
     
     # Mlflow settings
     mlflow.set_tracking_uri("sqlite:///mlflow.db")
@@ -205,7 +204,7 @@ def s3_main_flow(train_path: str = "../00-data/training_data.csv",
     # Load
     os.environ["AWS_PROFILE"]  = "demiga-g"
     s3_bucket_block = S3Bucket.load("s3-bucket-example")
-    s3_bucket_block.download_folder_to_path(from_folder='data', to_folder='00-data')
+    s3_bucket_block.download_folder_to_path(from_folder='data', to_folder='data')
     
     
     df_train = read_clean_data(train_path)
