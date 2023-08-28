@@ -15,4 +15,3 @@ output/
 # prefect.yaml
 .prefect
 a.ipynb
-*.sav
