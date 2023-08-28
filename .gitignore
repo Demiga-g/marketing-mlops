@@ -14,3 +14,5 @@ output/
 .prefectignore
 # prefect.yaml
 .prefect
+a.ipynb
+*.sav
